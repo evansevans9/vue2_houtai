@@ -1,0 +1,11 @@
+<template>
+    <div>mall</div>
+</template>
+<script>
+export default{
+    name:"MallView"
+}
+</script>
+<style lang="scss" scoped>
+
+</style>
