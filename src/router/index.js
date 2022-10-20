@@ -7,6 +7,8 @@ import PageOne  from '../views/PageOne.vue'
 import PageTwo  from '../views/PageTwo.vue'
 import MainView  from '../views/Main.vue'
 import LoginView from '../views/Login'
+import Cookie from 'js-cookie'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,4 +45,15 @@ const router = new VueRouter({
   routes
 })
 
+
+router.beforeEach((to, from, next) => {
+  const token = Cookie.get('token')
+  if(!token && to.name !== 'Login'){
+    next({name:'Login'})
+  }else if(token && to.name == 'Login'){
+    next({name:'home'})
+  }else{
+    next()
+  }
+})
 export default router

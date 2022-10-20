@@ -49,41 +49,62 @@
       </span>
     </el-dialog>
     <div class="manage-header">
-      <el-button type="primary" @click="addshuju">+ 新增</el-button>
+      <el-button class="btn1" type="primary" @click="addshuju"
+        >+ 新增</el-button
+      >
 
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="姓名"> </el-table-column>
-        <el-table-column prop="sex" label="性别">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{
-              scope.row.sex == 1 ? "男" : "女"
-            }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="age" label="年龄"> </el-table-column>
-        <el-table-column prop="birth" label="出生日期"> </el-table-column>
-        <el-table-column prop="addr" label="地址"> </el-table-column>
+      <!-- form 搜索区域 -->
+      <el-form :model="userform" :inline="true">
+        <el-form-item>
+          <el-input
+            v-model="userform.name"
+            placeholder="请输入搜索姓名"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">查询</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <el-table height="90%" :data="tableData" style="width: 100%">
+      <el-table-column prop="name" label="姓名"> </el-table-column>
+      <el-table-column prop="sex" label="性别">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{
+            scope.row.sex == 1 ? "男" : "女"
+          }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="age" label="年龄"> </el-table-column>
+      <el-table-column prop="birth" label="出生日期"> </el-table-column>
+      <el-table-column prop="addr" label="地址"> </el-table-column>
 
-        <el-table-column prop="sex" label="性别">
-          <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)"
-              >编辑</el-button
-            >
-            <el-button size="mini" @click="handleDel(scope.row)" type="danger"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
+      <el-table-column prop="" label="添加删除">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button size="mini" @click="handleDel(scope.row)" type="danger"
+            >删除</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="block">
+      <el-pagination
+        layout="prev, pager, next"
+        :total="this.total"
+        @current-change="handelYema"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
 <script>
-import { getUser, addUser, editUser,delUser } from "../api";
+import { getUser, addUser, editUser, delUser } from "../api";
 export default {
   name: "UserView",
   data() {
     return {
+      userform: {},
       dialogVisible: false,
       form: {
         name: "",
@@ -94,6 +115,11 @@ export default {
       },
       tableData: [],
       modalType: 0, //1 编辑  0新增
+      total: 0,
+      yemaData: {
+        page: 1,
+        limit: 10,
+      },
       rules: {
         name: [
           { required: true, message: "请输入姓名", trigger: "blur" },
@@ -151,12 +177,12 @@ export default {
         type: "warning",
       })
         .then(() => {
-          delUser({ id : row.id}).then(()=>{
+          delUser({ id: row.id }).then(() => {
             this.$message({
-            type: "success",
-            message: "删除成功!",
+              type: "success",
+              message: "删除成功!",
+            });
           });
-          })
           this.gengxinList();
         })
         .catch(() => {
@@ -170,11 +196,24 @@ export default {
       this.modalType = 0;
       this.dialogVisible = true;
     },
+    // 获取列表数据
     gengxinList() {
-      getUser().then(({ data }) => {
-        console.log(data);
-        this.tableData = data.list;
-      });
+      getUser({ params: { ...this.userform, ...this.yemaData } }).then(
+        ({ data }) => {
+          console.log(data, "7676");
+          this.tableData = data.list;
+          this.total = data.count || 0;
+        }
+      );
+    },
+    handelYema(val) {
+      console.log(val, "fdfdfdfdfdfdf");
+      this.yemaData.page = val;
+      this.gengxinList();
+    },
+    // 列表查询
+    onSubmit() {
+      this.gengxinList();
     },
   },
   mounted() {
@@ -182,4 +221,15 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.user-comtainer {
+  height: 92%;
+}
+.manage-header {
+  display: flex;
+  justify-content: space-between;
+  .btn1 {
+    height: 40px;
+  }
+}
+</style>

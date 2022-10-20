@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Cookie from 'js-cookie'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
       label: "首页",
       icon: "s-home",
       url: "Home/Home",
-    },]
+    },],
+    Menu:[]
   },
   getters: {
   },
@@ -35,7 +37,14 @@ export default new Vuex.Store({
       console.log(item,'item')
       const index =  state.tablist.findIndex(val => val.name === item.name)
       state.tablist.splice(index,1)
-    }
+    },
+    // 设置menu，动态的aside
+    getMenu(state,val){
+      state.Menu = val
+      // 。。。。。json
+      Cookie.set('menu',JSON.stringify(val))
+    },
+    // 动态注册路由
   },
   actions: {
   },

@@ -12,13 +12,13 @@
       </el-breadcrumb>
     </div>
     <div class="right__container">
-      <el-dropdown>
+      <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
           <img src="../assets/images/user.png" alt="" class="user" />
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>个人中心</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item command="a">个人中心</el-dropdown-item>
+          <el-dropdown-item command="b">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -26,6 +26,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import Cookie from 'js-cookie'
 export default {
   data() {
     return {};
@@ -34,6 +35,16 @@ export default {
     clickchange() {
       this.$store.commit("isCollapsed");
     },
+    // 退出，清空当前cookie
+    handleCommand(command){
+      if(command == 'b'){
+      Cookie.remove('token');
+      setTimeout(() => {
+         this.$router.push('/login')
+      }, 500);
+
+      }
+    }
   },
     computed:{
         ...mapState({

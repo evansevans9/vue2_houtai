@@ -8,11 +8,14 @@
         <el-input v-model="form.password" placeholder="请输入密码" type="password"></el-input>
     </el-form-item>
     <el-form>
-        <el-button type="primary" style="margin-left:105px;margin-top:5px">登录</el-button>
+        <el-button @click="dianjiLogin" type="primary" style="margin-left:105px;margin-top:5px">登录</el-button>
     </el-form>
   </el-form>
 </template>
 <script>
+import Mock from 'mockjs'
+import Cookie from 'js-cookie'
+import { getMenu } from '../api'
 export default {
   name: "LoginView",
 data(){
@@ -29,6 +32,37 @@ data(){
                  { required: true, message: '请输入密码', trigger: 'blur' },
             ]
         }
+    }
+},
+methods:{
+    // 登录
+    dianjiLogin(){
+        // token
+        // const token =  Mock.Random.guid();
+        // Cookie.set('token',token);
+        // this.$router.push({name:'home'})
+        this.$refs.form.validate((val)=>{
+            if(val){
+                getMenu(this.form).then((data)=>{
+                    console.log(data.data.data.menu,'111111111')
+                    if(data.data.code == 20000){
+                         Cookie.set('token',data.data.data.token);
+
+                        //  拿到menu，存store
+                        this.$store.commit('getMenu',data.data.data.menu)
+                    setTimeout(()=>{
+                        this.$message({
+                        message: '登录成功',
+                        type: 'success'
+                        },1000);
+                    })
+                    this.$router.push({name:'home'})
+                    }else{
+                        this.$message.error('登陆失败,用户名或密码错误');
+                    }
+                })
+            }
+        })
     }
 }
 }
