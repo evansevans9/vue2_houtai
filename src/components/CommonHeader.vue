@@ -39,6 +39,7 @@ export default {
     handleCommand(command){
       if(command == 'b'){
       Cookie.remove('token');
+      Cookie.remove('menu');
       setTimeout(() => {
          this.$router.push('/login')
       }, 500);

@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import UserView from '../views/UserView.vue'
-import MallView from '../views/Mall.vue'
-import PageOne  from '../views/PageOne.vue'
-import PageTwo  from '../views/PageTwo.vue'
+// import HomeView from '../views/HomeView.vue'
+// import UserView from '../views/UserView.vue'
+// import MallView from '../views/Mall.vue'
+// import PageOne  from '../views/PageOne.vue'
+// import PageTwo  from '../views/PageTwo.vue'
 import MainView  from '../views/Main.vue'
 import LoginView from '../views/Login'
 import Cookie from 'js-cookie'
@@ -19,11 +19,11 @@ const routes = [
     component: MainView,
     redirect: "/home" ,
     children:[
-      { path: 'home', name:'home',component: HomeView },//首页
-      { path: 'user', name:'user',component: UserView },//用户管理
-      { path: 'mall', name:'mall',component: MallView },//商品管理
-      { path: 'page1', name:'page1',component: PageOne },
-      { path: 'page2', name:'page2',component: PageTwo },
+      // { path: 'home', name:'home',component: HomeView },//首页
+      // { path: 'user', name:'user',component: UserView },//用户管理
+      // { path: 'mall', name:'mall',component: MallView },//商品管理
+      // { path: 'page1', name:'page1',component: PageOne },
+      // { path: 'page2', name:'page2',component: PageTwo },
     ]
   },
   {

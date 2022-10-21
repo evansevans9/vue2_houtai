@@ -48,6 +48,7 @@
         <el-button type="primary" @click="handelclick">确 定</el-button>
       </span>
     </el-dialog>
+
     <div class="manage-header">
       <el-button class="btn1" type="primary" @click="addshuju"
         >+ 新增</el-button
@@ -66,6 +67,8 @@
         </el-form-item>
       </el-form>
     </div>
+
+    
     <el-table height="90%" :data="tableData" style="width: 100%">
       <el-table-column prop="name" label="姓名"> </el-table-column>
       <el-table-column prop="sex" label="性别">

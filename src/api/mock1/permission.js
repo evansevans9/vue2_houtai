@@ -10,39 +10,39 @@ export default {
         data: {
           menu: [
             {
-              path: '/home',
+              path: 'home',
               name: 'home',
               label: '首页',
               icon: 's-home',
-              url: 'Home.vue'
+              url: 'HomeView.vue'
             },
             {
-              path: '/mall',
+              path: 'mall',
               name: 'mall',
               label: '商品管理',
               icon: 'video-play',
               url: 'Mall.vue'
             },
             {
-              path: '/user',
+              path: 'user',
               name: 'user',
               label: '用户管理',
               icon: 'user',
-              url: 'User.vue'
+              url: 'UserView.vue'
             },
             {
               label: '其他',
               icon: 'location',
               children: [
                 {
-                  path: '/page1',
+                  path: 'page1',
                   name: 'page1',
                   label: '页面1',
                   icon: 'setting',
                   url: 'PageOne.vue'
                 },
                 {
-                  path: '/page2',
+                  path: 'page2',
                   name: 'page2',
                   label: '页面2',
                   icon: 'setting',
@@ -61,14 +61,14 @@ export default {
         data: {
           menu: [
             {
-              path: '/home',
+              path: 'home',
               name: 'home',
               label: '首页',
               icon: 's-home',
               url: 'Home.vue'
             },
             {
-              path: '/video',
+              path: 'video',
               name: 'video',
               label: '商品管理',
               icon: 'video-play',

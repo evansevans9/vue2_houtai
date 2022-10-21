@@ -50,17 +50,19 @@ methods:{
 
                         //  拿到menu，存store
                         this.$store.commit('getMenu',data.data.data.menu)
+                        this.$store.commit('addMenu',this.$router)
                     setTimeout(()=>{
                         this.$message({
                         message: '登录成功',
                         type: 'success'
-                        },1000);
+                        },100);
                     })
                     this.$router.push({name:'home'})
                     }else{
                         this.$message.error('登陆失败,用户名或密码错误');
                     }
                 })
+
             }
         })
     }

@@ -13,5 +13,8 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  created(){
+    store.commit('addMenu',router)
+  },
   render: h => h(App)
 }).$mount('#app')

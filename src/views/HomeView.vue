@@ -45,7 +45,6 @@
     </el-col>
   </el-row>
 </template>
-<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 <script>
 import { getData } from '../api/index'
 export default {
